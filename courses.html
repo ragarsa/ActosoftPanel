@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <section id="listBefore">
+        <h2> Cursos anteriores </h2>
+    </section>
+    <section id="coursesComing"></section>
+    <section>
+        <h2> Agregar nuevo curso </h2>
+        <form>
+            <label for="title-course">Título del curso</label>
+            <input 
+                type="text"
+                placeholder="Course Title"
+                name="title"
+                id="titleCourse"
+                class="message">
+            <label for="descriptionCourse"></label>
+            <textarea 
+                name="description" 
+                id="descriptionCourse" 
+                cols="30" 
+                rows="10"
+                class="message"> Write some description... </textarea>
+            <label for="authorCourse">Introduce el nombre del instructor:</label>
+            <input 
+                type="text"
+                placeholder="authorCourse"
+                class="message"
+                id="authorCourse">
+            <label for="dateCourse">Start Date</label>
+            <input type="date" name="StartDate" id="dateCourse" class="message">
+            <label for="durationCourse">Duration</label>
+            <input 
+                type="text"
+                id="durationCourse"
+                class="message"
+            >
+            <label for="imageInput">Add an image</label>
+            <input 
+                type="file"
+                accept="image/png, image/jpeg, image/jpg"
+                id="imageInput"
+                class="message"
+            >
+            <button id="sendDataCourse">Data!</button>
+        </form>
+    </section>
+    
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-storage.js"></script>
+    
+    <script src="../courses.js"> </script>
+</body>
+</html>

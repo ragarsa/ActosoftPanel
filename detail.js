@@ -1,13 +1,12 @@
 const firebaseConfig = {
-    apiKey: "AIzaSyDwGli-mryIZch0j0DF0eihCZXiWbGyblE",
-    authDomain: "actosoftpanel.firebaseapp.com",
-    databaseURL: "https://actosoftpanel.firebaseio.com",
+    apiKey: "",
+    authDomain: "",
+    databaseURL: "",
     projectId: "actosoftpanel",
-    storageBucket: "actosoftpanel.appspot.com",
-    messagingSenderId: "477113114096",
-    appId: "1:477113114096:web:292e0794332bd76b6cd135",
-    measurementId: "G-2LG9BXE7LL"
-  };
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: "",
+};
 
 firebase.initializeApp(firebaseConfig);
 

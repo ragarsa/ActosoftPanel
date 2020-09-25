@@ -89,67 +89,40 @@ document.addEventListener('DOMContentLoaded', function (){
         querySnapshot.forEach(function(item){
             courses.push(item.data())
         })
-        let innerHTML = '<ul>'
+        let innerHTML = '<article>'
         courses.forEach(function(course) {
             innerHTML += `
-            <li>
-                <div> <a href='detailcourse.html'> ${course.title} </a> </div>
-                <div> ${course.description} </div>
-                <div> ${course.startDate} </div>
-                <div> ${course.duration} </div>
-                <div> ${course.teacher} </div>
+                <button class="collapsable"> ${course.title} </button>
+                <div class="collapse"> ${course.description} </div>
+                <div class="collapse"> ${course.startDate} </div>
+                <div class="collapse"> ${course.duration} </div>
+                <div class="collapse"> ${course.teacher} </div>
                 ${course.image ?
                     `<img src="${course.image}" alt="image" width="50" height="50">` 
-                    : 'imagen no disponible'
+                    : '<div class="collapse">imagen no disponible</div>'
                 }
-            </li>
+        
             `
 
         })
-        innerHTML += '</ul>'
+        innerHTML += '</article>'
         messagesContainer.innerHTML += innerHTML;
     })
 })
 
 
-const mockDataCourses = [
-    {
-        title: 'Python Foundamentals',
-        description: 'This course is for learning the basics of the Python language.',
-        duration: '24 hrs',
-        instructor: 'Martín Melo'
-    },
-    {
-        title: 'Django Basics',
-        description: 'This course is for learning the basics of the web development with Django.',
-        duration: '24 hrs',
-        instructor: 'Martín Melo' 
-    },
-    {
-        title: 'Web Design Basics',
-        description: 'This course is for learning the basics of development web services and apps',
-        duration: '24 hrs',
-        instructor: 'Martín Melo'
-    }
-]
+let coll = document.querySelectorAll('.collapsable');
 
-//Llamamos el DOM con el id asignado a list
-/*
-const listCoursesSection = document.querySelector('#list-before')
 
-const getCourses = () => {
-    let coursesHtml = '';
-    mockDataCourses.forEach(course => {
-        const html = `
-        <article> 
-            <h3> ${course.title} </h3>
-            <p> ${course.description} </p>
-        </article>
-        `
-        coursesHtml += html
+for (let i = 0; i < coll.length; i++) {
+    console.log(coll)
+    coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var collapse = this.nextElementSibling;
+        if (collapse.style.display === "block") {
+            collapse.style.display = "none";
+        } else {
+            collapse.style.display = "block";
+        }
     })
-    listCoursesSection.innerHTML += coursesHtml
 }
-
-document.addEventListener('DOMContentLoaded', getCourses())
-*/

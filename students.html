@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <section>
+        <h2>
+            Estudiantes
+        </h2> 
+        <article id="studentsContent">
+        </article>
+
+    </section>
+
+    <section>
+        <h2>
+            Agrega un nuevo estudiante
+        </h2>
+        <article>
+            <label for="firstName">Primer nombre: </label>
+            <input 
+                type="text"
+                placeholder="Nombre"
+                name="nombre"
+                id="firstName"
+                class="message">
+            <label for="lastName"> Apellidos </label>
+            <input 
+                type="text"
+                placeholder="Apellidos"
+                name="lastName"
+                id="lastName"
+                class="message">
+            <label for="email">Introduce el email</label>
+            <input 
+                type="text"
+                placeholder="email"
+                class="message"
+                id="email">
+            <label for="studentPhone">Número telefónico</label>
+            <input type="number" name="phone" id="studentPhone" class="message">
+            <label for="age">Edad</label>
+            <input 
+                type="number"
+                placeholder="Edad"
+                id="studentAge"
+                class="message"
+            >
+            <label for="studentBio">Biografía (opcional)</label>
+            <textarea 
+            name="studentBio" 
+            id="studentBio" 
+            cols="30" 
+            rows="10"
+            class="message"
+            ></textarea>
+            <label for="profilePhoto">Add an image</label>
+            <input 
+                type="file"
+                accept="image/png, image/jpeg, image/jpg"
+                id="profilePhoto"
+                class="message"
+            >
+            
+        </article>
+        <article id="formStudent">
+        </article>
+        <button id="sendStudentData">Inscribir estudiante</button>
+    </section>
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-storage.js"></script>
+    <script src="students.js"></script>
+</body>
+</html>

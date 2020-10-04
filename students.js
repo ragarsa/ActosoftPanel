@@ -28,6 +28,7 @@ const profilePhoto = document.querySelector('#profilePhoto')
 const buttonStudent = document.querySelector('#sendStudentData')
 const studentContent = document.querySelector('#studentsContent')
 
+
 document.addEventListener('DOMContentLoaded', function () {
     db.collection('courses')
         .orderBy("timestamp", "asc")
@@ -36,14 +37,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const courses = []
             querySnapshot.forEach(function (item) {
-                courses.push({'id':item.id, ...item.data()})
-                
+                courses.push({ 'id': item.id, ...item.data() })
+
             })
             let innerHTML = '<p> Selecciona los cursos del estudiante </p>'
 
             courses.forEach(function (course) {
-    
-            
+
+
                 innerHTML += `
                 
                 <input type="checkbox" id="${course.title}" name="courses" value="${course.title}" class="inputCourses">
@@ -63,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 })
 
-const studentCourses = document.querySelectorAll('input[type="checkbox"]:checked')
+
 
 
 function uploadToStorage(file, docId) {
@@ -88,6 +89,18 @@ function uploadToStorage(file, docId) {
 }
 
 buttonStudent.addEventListener('click', (event) => {
+    let choices = []
+    let coursesChoice = document.getElementsByName('courses')
+    for (let i = 0; i < coursesChoice.length; i++) {
+        if (coursesChoice[i].checked) {
+            choices.push(coursesChoice[i].value)
+
+        }
+    }
+    if (choices == '') {
+        choices.push('Este estudiante aún no tiene cursos')
+    }
+
     event.preventDefault()
     const image = profilePhoto.files[0]
     db.collection('students').add({
@@ -97,7 +110,7 @@ buttonStudent.addEventListener('click', (event) => {
         phone: studentPhone.value,
         age: studentAge.value,
         biography: studentBio.value,
-        courses: studentCourses.value,
+        courses: choices,
         timestamp: firebase.firestore.Timestamp.now()
     }).then(function (docRef) {
         uploadToStorage(image, docRef.id)
@@ -112,10 +125,10 @@ buttonStudent.addEventListener('click', (event) => {
             })
     }).catch(function (error) {
         console.log(error)
-        alert('No se pudo guardar el curso')
+        alert('No se pudo guardar el estudiante')
     })
-    messagesContainer.innerHTML = ''
-    
+    studentContent.innerHTML = ''
+
 
 })
 
@@ -127,16 +140,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const students = []
             querySnapshot.forEach(function (item) {
-                students.push({'id':item.id, ...item.data()})
+                students.push({ 'id': item.id, ...item.data() })
                 console.log(item)
             })
             let innerHTML = ''
 
             students.forEach(function (student) {
-                
-    
 
-            
+
+
+
                 innerHTML += `
                     <div> 
                     <p> ${student.firstName} </p> 
@@ -154,3 +167,4 @@ document.addEventListener('DOMContentLoaded', function () {
         })
 
 })
+

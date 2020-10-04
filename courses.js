@@ -25,6 +25,7 @@ const dateInput = document.querySelector('#dateCourse')
 const durationInput = document.querySelector('#durationCourse')
 const messagesContainer = document.querySelector('#listBefore')
 const textContainer = document.querySelector('#textContainer')
+const coursesContent = document.querySelector('#studentCourses')
 
 //const googleButton = document.querySelector('#loginWithGoogle')
 //const logoutButton = document.querySelector('#logout')
@@ -91,18 +92,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const courses = []
             querySnapshot.forEach(function (item) {
-                courses.push({'id':item.id, ...item.data()})
-                console.log(item)
+                courses.push({ 'id': item.id, ...item.data() })
+                // console.log(item)
             })
             let innerHTML = ''
 
             courses.forEach(function (course) {
-                
-                btn = courses.map(course => `<button id="${course.id}" onclick="functional(this)"> ${course.title} </button>`)
+
+                let btn = courses.map(course => `<button id="${course.id}" onclick="functional(this)"> ${course.title} </button>`)
                 messagesContainer.innerHTML = btn.join(' ')
                 console.log(course.id)
 
-            
+
                 innerHTML += `
               
               
@@ -122,8 +123,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function functional(id) {
     db.collection('courses').doc(id.id).get().then(doc => {
-        
-        if (doc.exists){
+
+        if (doc.exists) {
             textContainer.innerHTML = `<p> Descripción: ${doc.data().description} </p>
                                        <p> Maestro: ${doc.data().teacher} </p>
                                        <p> Duración: ${doc.data().duration} </p>
@@ -131,20 +132,37 @@ function functional(id) {
                                        <button onClick="update(this)"> Actualizar este curso </button>
                                        `
             console.log(doc.data().description)
-        }else{
+            db.collection('students').get().then(snap => {
+                snap.forEach(st => {
+                    for (i in st.data().courses) {
+                        if (st.data().courses[i] == doc.data().title) {
+                            console.log('Exito')
+                        }
+                    }
+
+                    console.log(st.data().courses)
+                    console.log(doc.data().title)
+                })
+            })
+
+        } else {
             console.log('nop :(')
         }
-        })
-    
+    })
+
     console.log(id.id)
 }
 
-function deleteCourse(id){
-    
-    alert('curso eliminado'+id.id)
+function deleteCourse(id) {
+
+    alert('curso eliminado' + id.id)
 
 }
+
+
+
 /*
 FOR STUDENTS .HTML
 */
+
 

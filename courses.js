@@ -15,7 +15,7 @@ const db = firebase.firestore();
 //Storage firebase
 const storage = firebase.storage();
 //Authentication firebase
-//const provider = new firebase.auth.GoogleAuthProvider();
+const provider = new firebase.auth.GoogleAuthProvider();
 //Send button
 const sendButton = document.querySelector('#sendDataCourse')
 const titleInput = document.querySelector('#titleCourse')
@@ -26,11 +26,31 @@ const durationInput = document.querySelector('#durationCourse')
 const messagesContainer = document.querySelector('#listBefore')
 const textContainer = document.querySelector('#textContainer')
 const coursesContent = document.querySelector('#studentCourses')
+const buttonContent = document.querySelector('#buttonContent')
 
 //const googleButton = document.querySelector('#loginWithGoogle')
 //const logoutButton = document.querySelector('#logout')
 //const userInfoContainer = document.querySelector('#user-info')
 const imageInput = document.querySelector('#imageInput')
+const userContainer = document.querySelector('#userContent')
+
+firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+        userContainer.innerHTML = `
+                <p>${user.displayName}</p>
+                <img src="${user.photoURL}" style= width:250px height:250px"/>
+            `
+            console.log(user.uid)
+
+        console.log('Está logeado', user)
+
+    } else {
+        console.log('No está logueado')
+        userContainer.innerHTML = ''
+
+
+    }
+})
 
 
 function uploadToStorage(file, docId) {
@@ -128,22 +148,29 @@ function functional(id) {
             textContainer.innerHTML = `<p> Descripción: ${doc.data().description} </p>
                                        <p> Maestro: ${doc.data().teacher} </p>
                                        <p> Duración: ${doc.data().duration} </p>
-                                       <button onClick="deleteCourse(this)"> Eliminar este curso </button> 
-                                       <button onClick="update(this)"> Actualizar este curso </button>
+                                       <p> Fecha de inicio: ${doc.data().startDate} </p>
+                                       <img src="${doc.data().image}" style= width:250px height:250px"/>
                                        `
             console.log(doc.data().description)
             db.collection('students').get().then(snap => {
                 snap.forEach(st => {
                     for (i in st.data().courses) {
                         if (st.data().courses[i] == doc.data().title) {
-                            console.log('Exito')
+                            coursesContent.innerHTML = `<p>${st.data().firstName} ${st.data().surname}</p>`
+                            buttonContent.innerHTML = ` <button id="${id.id}" onClick="deleteCourse(this)"> Eliminar este curso </button> 
+                                                        <button onClick="update(this)"> Actualizar este curso </button>`
+                        } else {
+                            coursesContent.innerHTML = `<p>No hay alumnos inscritos aún</p>`
+                            buttonContent.innerHTML = ` <button id="${id.id}" onClick="deleteCourse(this)"> Eliminar este curso </button> 
+                                                        <button onClick="update(this)"> Actualizar este curso </button>`
+
                         }
                     }
 
-                    console.log(st.data().courses)
-                    console.log(doc.data().title)
+
                 })
             })
+
 
         } else {
             console.log('nop :(')
@@ -154,10 +181,16 @@ function functional(id) {
 }
 
 function deleteCourse(id) {
-
-    alert('curso eliminado' + id.id)
-
+    db.collection('courses').doc(id.id).delete().then(() => {
+        alert('curso eliminado' + id.title)
+        location.reload();
+    }).catch(error => {
+        alert('No se ha podido eliminar' + error)
+    })
 }
+
+
+
 
 
 

@@ -16,7 +16,7 @@ const db = firebase.firestore();
 //Storage firebase
 const storage = firebase.storage();
 
-
+const provider = new firebase.auth.GoogleAuthProvider();
 const studentForm = document.querySelector("#formStudent")
 const firstName = document.querySelector('#firstName')
 const surName = document.querySelector('#lastName')
@@ -27,6 +27,25 @@ const studentBio = document.querySelector('#studentBio')
 const profilePhoto = document.querySelector('#profilePhoto')
 const buttonStudent = document.querySelector('#sendStudentData')
 const studentContent = document.querySelector('#studentsContent')
+const userContainer = document.querySelector('#userContent')
+
+firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+        userContainer.innerHTML = `
+                <p>${user.displayName}</p>
+                <img src="${user.photoURL}" style= width:250px height:250px"/>
+            `
+            console.log(user.uid)
+
+        console.log('Está logeado', user)
+
+    } else {
+        console.log('No está logueado')
+        userContainer.innerHTML = ''
+
+
+    }
+})
 
 
 document.addEventListener('DOMContentLoaded', function () {

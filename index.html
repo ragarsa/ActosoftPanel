@@ -13,18 +13,25 @@
             <a href="about.html"> About us</a>
             <a href="#"> Courses </a>
             <a href="#"> Students </a>
-            <a href="#"> Log out </a>
         </div>
     </header>
     <section>
-        <article>
-            <button id="loginwithGoogle"> Inicia sesión con Google </button>
+        <article id="buttons">
+            <button id="loginWithGoogle"> Inicia sesión con Google </button>
             <button id="logout">Salir</button>
+        </article>
+        <article>
+            <div id="userInfo"></div>
         </article>
         
     </section>
     <footer>
         Actosoft 2020
     </footer>
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-storage.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>

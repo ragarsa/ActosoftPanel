@@ -171,8 +171,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 innerHTML += `
                     <div> 
-                    <p> ${student.firstName} </p> 
-                    <p> ${student.courses} </p>
+                    <p> Nombre: ${student.firstName} ${student.surname} </p> 
+                    <p> Edad: ${student.age} </p>
+                    <p> Cursos en los que está inscrito: ${student.courses} </p>
+                    <p> Correo electrónico: ${student.email} </p>
+                    <p> Número de contacto: ${student.age} </p>
+                    <p> Biografía: ${student.biography} </p>
+                    ${student.image ?
+                        `<img src=${student.image} style= width:250px height:250px"/>`
+                        : `<img src=https://i.pinimg.com/originals/83/46/bc/8346bcb80380e7f21ba1d7ab8b570d85.png style= width:250px height:250px">`}
+                    </div>
+                    <div> 
+                    <button id="${student.id}" onClick="deleteStudent(this)"> Eliminar estudiante</button> 
+                    <button onClick="update(this)"> Actualizar estudiante </button>
                     </div>
               
                 `
@@ -187,3 +198,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 })
 
+function deleteStudent(id) {
+    db.collection('students').doc(id.id).delete().then(() => {
+        alert('Estudiante eliminado' + id.title)
+        location.reload();
+    }).catch(error => {
+        alert('No se ha podido eliminar' + error)
+    })
+}

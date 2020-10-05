@@ -6,11 +6,19 @@
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
 <body>
+    <header>
+        <div>
+            <a href="#"> ¿Eres miembro? </a>
+            <a href="about.html"> Sobre nosotros</a>
+            <a href="students.html"> Alumnos </a>
+            <a href="index.html"> Inicio </a>
+        </div>
+    </header>
     <section>
         <article id="userContent"> </article>
     </section>
     <section id="buttonContainer">
-        <h2> Cursos anteriores </h2>
+        <h2> Cursos actuales </h2>
         <article id="listBefore"></article>
         <h3>Descripción del curso</h3>
         <div id="textContainer"></div>
@@ -27,7 +35,7 @@
             <label for="title-course">Título del curso</label>
             <input 
                 type="text"
-                placeholder="Course Title"
+                placeholder="Título del curso"
                 name="title"
                 id="titleCourse"
                 class="message">
@@ -37,11 +45,12 @@
                 id="descriptionCourse" 
                 cols="30" 
                 rows="10"
-                class="message"> Write some description... </textarea>
+                class="message"
+                placeholder="Agrega una descripción"> </textarea>
             <label for="authorCourse">Introduce el nombre del instructor:</label>
             <input 
                 type="text"
-                placeholder="authorCourse"
+                placeholder="Instructor"
                 class="message"
                 id="authorCourse">
             <label for="dateCourse">Start Date</label>

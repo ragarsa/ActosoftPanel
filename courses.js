@@ -40,7 +40,7 @@ firebase.auth().onAuthStateChanged(function (user) {
                 <p>${user.displayName}</p>
                 <img src="${user.photoURL}" style= width:250px height:250px"/>
             `
-            console.log(user.uid)
+        console.log(user.uid)
 
         console.log('Está logeado', user)
 
@@ -153,22 +153,33 @@ function functional(id) {
                                        `
             console.log(doc.data().description)
             db.collection('students').get().then(snap => {
-                snap.forEach(st => {
-                    for (i in st.data().courses) {
-                        if (st.data().courses[i] == doc.data().title) {
-                            coursesContent.innerHTML = `<p>${st.data().firstName} ${st.data().surname}</p>`
-                            buttonContent.innerHTML = ` <button id="${id.id}" onClick="deleteCourse(this)"> Eliminar este curso </button> 
-                                                        <button onClick="update(this)"> Actualizar este curso </button>`
-                        } else {
-                            coursesContent.innerHTML = `<p>No hay alumnos inscritos aún</p>`
-                            buttonContent.innerHTML = ` <button id="${id.id}" onClick="deleteCourse(this)"> Eliminar este curso </button> 
-                                                        <button onClick="update(this)"> Actualizar este curso </button>`
+                if (snap.exists) {
+                    snap.forEach(st => {
 
+                        for (i in st.data().courses) {
+                            if (st.data().courses[i] == doc.data().title) {
+                                coursesContent.innerHTML = `<p>${st.data().firstName} ${st.data().surname}</p>`
+                                buttonContent.innerHTML = ` <button id="${id.id}" onClick="deleteCourse(this)"> Eliminar este curso </button> 
+                                                            <button onClick="update(this)"> Actualizar este curso </button>`
+                            } else {
+                                coursesContent.innerHTML = `<p>No hay alumnos inscritos aún</p>`
+                                buttonContent.innerHTML = ` <button id="${id.id}" onClick="deleteCourse(this)"> Eliminar este curso </button> 
+                                                            <button onClick="update(this)"> Actualizar este curso </button>`
+
+                            }
                         }
-                    }
+                        console.log('No hay datos' + st.data().courses)
 
 
-                })
+
+                    })
+                }else{
+                    buttonContent.innerHTML = ` 
+                    <div> No hay estudiantes inscritos en este curso </div>
+                    <button id="${id.id}" onClick="deleteCourse(this)"> Eliminar este curso </button> 
+                    <button onClick="update(this)"> Actualizar este curso </button>`
+                }
+
             })
 
 

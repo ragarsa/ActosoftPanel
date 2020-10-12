@@ -27,6 +27,12 @@ const messagesContainer = document.querySelector('#listBefore')
 const textContainer = document.querySelector('#textContainer')
 const coursesContent = document.querySelector('#studentCourses')
 const buttonContent = document.querySelector('#buttonContent')
+const updateForm = document.querySelector('#updateForm')
+const titleInputUp = document.querySelector('#titleCourseUp')
+const descriptionInputUp = document.querySelector('#descriptionCourseUp')
+const authorInputUp = document.querySelector('#authorCourseUp')
+const dateInputUp = document.querySelector('#dateCourseUp')
+const durationInputUp = document.querySelector('#durationCourseUp')
 
 //const googleButton = document.querySelector('#loginWithGoogle')
 //const logoutButton = document.querySelector('#logout')
@@ -160,11 +166,11 @@ function functional(id) {
                         if (st.data().courses[i] == doc.data().title) {
                             coursesContent.innerHTML = `<p>${st.data().firstName} ${st.data().surname}</p>`
                             buttonContent.innerHTML = ` <button id="${id.id}" onClick="deleteCourse(this)"> Eliminar este curso </button> 
-                                                            <button onClick="update(this)"> Actualizar este curso </button>`
+                                                        <button id="${id.id}" onClick="updateCourse(this)"> Actualizar este curso </button>`
                         } else {
                             coursesContent.innerHTML = `<p>No hay alumnos inscritos aún</p>`
                             buttonContent.innerHTML = ` <button id="${id.id}" onClick="deleteCourse(this)"> Eliminar este curso </button> 
-                                                            <button onClick="update(this)"> Actualizar este curso </button>`
+                                                        <button id=${id.id} onClick="updateCourse(this)"> Actualizar este curso </button>`
 
                         }
                     }
@@ -195,6 +201,58 @@ function deleteCourse(id) {
     })
 }
 
+function updateCourse(id){
+    db.collection('courses').doc(id.id).get().then(form => {
+        if (form.exists){
+            updateForm.innerHTML = `
+            <h2> Actualización de curso </h2>
+            <label for="title-course">Título del curso</label>
+            <input 
+                type="text"
+                placeholder="${form.data().title}"
+                name="title"
+                id="titleCourseUp"
+                class="message">
+            <label for="descriptionCourse"></label>
+            <textarea 
+                name="description" 
+                id="descriptionCourseUp" 
+                cols="30" 
+                rows="10"
+                class="message"
+                placeholder="${form.data().description}"></textarea>
+            <label for="authorCourse">Introduce el nombre del instructor:</label>
+            <input 
+                type="text"
+                placeholder="${form.data().teacher}"
+                class="message"
+                id="authorCourseUp">
+            <label for="dateCourse">Start Date</label>
+            <input placeholder = "${form.data().startDate}" 
+            class="textbox-n" type="text" onfocusin="(this.type='date')" onfocusout="(this.type='text')"  id="date">
+            <label for="durationCourse">Duration</label>
+            <input 
+                type="text"
+                id="durationCourseUp"
+                class="message"
+                placeholder = "${form.data().duration}"
+            >
+            <label for="imageInput">Add an image</label>
+            <input 
+                type="file"
+                accept="image/png, image/jpeg, image/jpg"
+                id="imageInputUp"
+                class="message"
+            >
+            <button id="sendDataCourseUpdate" onclick="updateData(this)">Actualizar</button>
+            ` 
+        }
+    })
+}
+
+function updateData(id){
+
+}
 
 
 
